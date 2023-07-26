@@ -30,7 +30,7 @@
 
       apps.x86_64-linux.default = {
         type = "app";
-        program = "${self.packages.x86_64-linux.default}/bin/magix-k8s";
+        program = "${self.packages.x86_64-linux.default}/bin/mc";
       };
 
       devShell.x86_64-linux = pkgs.mkShell {
