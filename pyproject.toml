@@ -5,6 +5,7 @@ description = "multicloud"
 dependencies = [
   "typer",
   "questionary",
+  "pydantic",
 ]
 
 [project.scripts]

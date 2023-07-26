@@ -1,10 +1,13 @@
 import typer
 
+from multicloud.provider import google_cloud
+
 cli = typer.Typer()
 
 
 @cli.command()
 def hello(name: str):
+    google_cloud.get_identity()
     print(f"Hello {name}")
 
 

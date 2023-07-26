@@ -25,6 +25,7 @@
         propagatedBuildInputs = [
           pythonPackages.questionary
           pythonPackages.typer
+          pythonPackages.pydantic
         ];
       };
 
@@ -37,6 +38,7 @@
         buildInputs = [
           pythonPackages.questionary
           pythonPackages.typer
+          pythonPackages.pydantic
 
           pkgs.google-cloud-sdk
           pkgs.awscli
