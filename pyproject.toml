@@ -6,6 +6,7 @@ dependencies = [
   "typer",
   "questionary",
   "pydantic",
+  "rich",
 ]
 
 [project.scripts]

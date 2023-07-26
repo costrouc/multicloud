@@ -26,6 +26,7 @@
           pythonPackages.questionary
           pythonPackages.typer
           pythonPackages.pydantic
+          pythonPackages.rich
         ];
       };
 
@@ -39,6 +40,7 @@
           pythonPackages.questionary
           pythonPackages.typer
           pythonPackages.pydantic
+          pythonPackages.rich
 
           pkgs.google-cloud-sdk
           pkgs.awscli2

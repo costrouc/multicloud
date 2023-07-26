@@ -1,6 +1,6 @@
 import typer
 
-from multicloud.provider import google_cloud, amazon_web_services
+from multicloud.provider import google_cloud, amazon_web_services, azure
 
 cli = typer.Typer()
 
@@ -12,6 +12,9 @@ def identity():
 
     aws = amazon_web_services.AmazonWebServices()
     print('Amazon Web Services', aws.identity())
+
+    az = azure.Azure()
+    print('Azure', az.identity())
 
 
 @cli.command()
