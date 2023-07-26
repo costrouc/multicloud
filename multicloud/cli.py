@@ -1,20 +1,28 @@
 import typer
 
-from multicloud.provider import google_cloud, amazon_web_services, azure
+from multicloud.provider import google_cloud, amazon_web_services, azure, base
 
 cli = typer.Typer()
 
 
+providers = {
+    'Google Cloud': google_cloud.GoogleCloud(),
+    'Amazon Web Services': amazon_web_services.AmazonWebServices(),
+    'Azure': azure.Azure(),
+}
+
+
 @cli.command()
 def identity():
-    gc = google_cloud.GoogleCloud()
-    print('Google identity', gc.identity())
+    for provider_name, provider in providers:
+        print(provider_name, 'identity', provider.identity())
 
-    aws = amazon_web_services.AmazonWebServices()
-    print('Amazon Web Services', aws.identity())
 
-    az = azure.Azure()
-    print('Azure', az.identity())
+@cli.command()
+def list(resource: str):
+    if resource == base.ResourceEnum.REGION:
+        for provider_name, provider in providers:
+            print(provider_name, 'region', provider.list_region())
 
 
 @cli.command()

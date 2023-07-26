@@ -10,8 +10,8 @@ from multicloud.provider.base import Cloud
 class Azure(Cloud):
     AZURE_PATH = shutil.which('az')
 
-    def _run_azure(self, *args, **kwargs) -> typing.Any:
-        process = subprocess.run([self.AWS_PATH, *args, '--output', 'json'], capture_output=True, **kwargs)
+    def _run(self, *args, **kwargs) -> typing.Any:
+        process = subprocess.run([self.AZURE_PATH, *args, '--output', 'json'], capture_output=True, **kwargs)
         if process.returncode != 0:
             raise ValueError(process.stdout)
         return json.loads(process.stdout)
@@ -20,8 +20,8 @@ class Azure(Cloud):
         command = [self.AZURE_PATH, 'login']
         return command
 
-    def identity(self) -> schema.CloudIdentity:
-        data = self._run_aws('ad', 'signed-in-user', 'show')
-        return schema.CloudIdentity(
+    def identity(self) -> schema.CloudContext:
+        data = self._run('ad', 'signed-in-user', 'show')
+        return schema.CloudContext(
             identity=data['mail']
         )

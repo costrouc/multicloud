@@ -11,11 +11,11 @@ class AmazonWebServices(Cloud):
     AWS_PATH = shutil.which('aws')
 
     def __init__(self):
-        data = self._run_aws('sts', 'get-caller-identity')
+        data = self._run('sts', 'get-caller-identity')
         self.account_id: str = data['Account']
         self.user_arn: str = data['Arn']
 
-    def _run_aws(self, *args, **kwargs) -> typing.Any:
+    def _run(self, *args, **kwargs) -> typing.Any:
         process = subprocess.run([self.AWS_PATH, *args, '--output', 'json'], capture_output=True, **kwargs)
         if process.returncode != 0:
             raise ValueError(process.stdout)
@@ -25,7 +25,7 @@ class AmazonWebServices(Cloud):
         command = [self.AWS_PATH, 'configure']
         return command
 
-    def identity(self) -> schema.CloudIdentity:
-        return schema.CloudIdentity(
+    def identity(self) -> schema.CloudContext:
+        return schema.CloudContext(
             identity=self.user_arn
         )

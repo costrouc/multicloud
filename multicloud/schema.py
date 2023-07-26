@@ -1,5 +1,7 @@
 import pydantic
 
 
-class CloudIdentity(pydantic.BaseModel):
+class CloudContext(pydantic.BaseModel):
     identity: str
+    account: str
+    region: str
