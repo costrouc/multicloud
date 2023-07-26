@@ -1,0 +1,11 @@
+[project]
+name = "multicloud"
+version = "0.1.0"
+description = "multicloud"
+dependencies = [
+  "typer",
+  "questionary",
+]
+
+[project.scripts]
+mc = "multicloud.__main__:cli"

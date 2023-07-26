@@ -23,8 +23,8 @@
         ];
 
         propagatedBuildInputs = [
-          pythonPackages.ruamel-yaml
-          pythonPackages.pytesseract
+          pythonPackages.questionary
+          pythonPackages.typer
         ];
       };
 
@@ -36,6 +36,12 @@
       devShell.x86_64-linux = pkgs.mkShell {
         buildInputs = [
           pythonPackages.questionary
+          pythonPackages.typer
+
+          pkgs.google-cloud-sdk
+          pkgs.awscli
+          pkgs.azure-cli
+          pkgs.doctl
         ];
       };
     };
