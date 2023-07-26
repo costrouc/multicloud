@@ -1,14 +1,14 @@
 import typer
 
-from multicloud.provider import google_cloud
+from multicloud.provider import google_cloud, amazon_web_services
 
 cli = typer.Typer()
 
 
 @cli.command()
-def hello(name: str):
-    google_cloud.get_identity()
-    print(f"Hello {name}")
+def identity():
+    gc = google_cloud.GoogleCloud()
+    print('Google identity', gc.identity())
 
 
 @cli.command()
