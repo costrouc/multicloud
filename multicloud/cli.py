@@ -1,6 +1,7 @@
 import typer
 
-from multicloud.provider import google_cloud, amazon_web_services, azure, base
+from multicloud.provider import google_cloud, amazon_web_services, azure
+from multicloud import schema
 
 cli = typer.Typer()
 
@@ -14,15 +15,24 @@ providers = {
 
 @cli.command()
 def identity():
-    for provider_name, provider in providers:
+    for provider_name, provider in providers.items():
         print(provider_name, 'identity', provider.identity())
 
 
-@cli.command()
-def list(resource: str):
-    if resource == base.ResourceEnum.REGION:
-        for provider_name, provider in providers:
-            print(provider_name, 'region', provider.list_region())
+@cli.command(name="list")
+def _list(resource: schema.ResourceEnum):
+    resource_map = {
+        schema.ResourceEnum.REGIONS: 'list_regions',
+        schema.ResourceEnum.ZONES: 'list_zones',
+        schema.ResourceEnum.VMS: 'list_vms',
+    }
+
+    if resource not in resource_map:
+        print('resource', resource, 'not recognized')
+        typer.Abort(1)
+
+    for provider_name, provider in providers.items():
+        print(provider_name, resource.value, getattr(provider, resource_map[resource])())
 
 
 @cli.command()

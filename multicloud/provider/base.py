@@ -1,10 +1,4 @@
-import enum
-
 from multicloud import schema
-
-
-class ResourceEnum(enum.Enum):
-    REGION = "region"
 
 
 class Cloud:
@@ -14,5 +8,11 @@ class Cloud:
     def login(self) -> list[str]:
         pass
 
-    def list_regions(self) -> list[str]:
+    def list_regions(self) -> list[schema.CloudRegion]:
+        pass
+
+    def list_zones(self) -> list[schema.CloudZone]:
+        pass
+
+    def list_vms(self) -> list[schema.CloudVM]:
         pass
