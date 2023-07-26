@@ -10,6 +10,9 @@ def identity():
     gc = google_cloud.GoogleCloud()
     print('Google identity', gc.identity())
 
+    aws = amazon_web_services.AmazonWebServices()
+    print('Amazon Web Services', aws.identity())
+
 
 @cli.command()
 def goodbye(name: str, formal: bool = False):

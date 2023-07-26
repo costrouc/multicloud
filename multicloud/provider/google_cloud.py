@@ -4,7 +4,7 @@ import json
 import shutil
 
 from multicloud import schema
-from multicloud.base import Cloud
+from multicloud.provider.base import Cloud
 
 
 class GoogleCloud(Cloud):
@@ -19,5 +19,5 @@ class GoogleCloud(Cloud):
     def identity(self) -> schema.CloudIdentity:
         data = self._run_gcloud('info')
         return schema.CloudIdentity(
-            email=data['config']['account']
+            identity=data['config']['account']
         )

@@ -41,7 +41,7 @@
           pythonPackages.pydantic
 
           pkgs.google-cloud-sdk
-          pkgs.awscli
+          pkgs.awscli2
           pkgs.azure-cli
           pkgs.doctl
         ];
