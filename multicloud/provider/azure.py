@@ -57,7 +57,7 @@ class Azure(Cloud):
 
     @staticmethod
     @functools.cache
-    def list_buckets() -> list[schema.Cloudbucket]:
+    def list_buckets() -> list[schema.CloudBucket]:
         # TODO: not implemented
         return []
 

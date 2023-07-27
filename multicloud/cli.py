@@ -1,7 +1,7 @@
 import typer
 
 from multicloud.provider import google_cloud, amazon_web_services, azure
-from multicloud import schema
+from multicloud import schema, output
 
 cli = typer.Typer()
 
@@ -35,5 +35,7 @@ def _list(resource: schema.ResourceEnum):
         print('resource', resource, 'not recognized')
         typer.Abort(1)
 
+    results = {}
     for provider_name, provider in providers.items():
-        print(provider_name, resource.value, getattr(provider, resource_map[resource])())
+        results[provider_name] = getattr(provider, resource_map[resource])()
+        output.print_table(results)
