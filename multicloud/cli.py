@@ -1,4 +1,6 @@
 import typer
+import rich
+from rich.progress import track
 
 from multicloud.provider import google_cloud, amazon_web_services, azure
 from multicloud import schema, output
@@ -36,6 +38,8 @@ def _list(resource: schema.ResourceEnum):
         typer.Abort(1)
 
     results = {}
-    for provider_name, provider in providers.items():
+    for provider_name, provider in track(providers.items(), description=f"Collecting {resource.value}"):
         results[provider_name] = getattr(provider, resource_map[resource])()
-        output.print_table(results)
+
+    table = output.print_table(results, title=resource.value)
+    rich.print(table)
