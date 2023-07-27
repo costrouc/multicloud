@@ -6,7 +6,7 @@ import pydantic
 class ResourceEnum(enum.Enum):
     REGIONS = "regions"
     ZONES = "zones"
-    VMS = "vms"
+    MACHINES = "machines"
 
 
 class CloudContext(pydantic.BaseModel):
@@ -26,9 +26,9 @@ class CloudZone(pydantic.BaseModel):
     name: str
 
 
-class CloudVM(pydantic.BaseModel):
+class CloudMachine(pydantic.BaseModel):
     name: str
-    description: str
+    description: str = None
     memory: int
     cpus: int
-    zone: str
+    zone: str = None

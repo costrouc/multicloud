@@ -52,3 +52,13 @@ class AmazonWebServices(Cloud):
                 data = _run('ec2', 'describe-availability-zones', '--region', region.name)
                 zones.extend([schema.CloudZone(region_name=region.name, name=_['ZoneName']) for _ in data['AvailabilityZones']])
         return zones
+
+    @staticmethod
+    @functools.cache
+    def list_machines() -> list[schema.CloudMachine]:
+        data = _run('ec2', 'describe-instance-types')
+        return [schema.CloudMachine(
+            name=_['InstanceType'],
+            memory=_['MemoryInfo']['sizeInMiB'],
+            cpus=_['VCpuInfo']['DefaultVCpus'],
+        ) for _ in data['InstanceTypes']]

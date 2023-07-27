@@ -45,3 +45,14 @@ class Azure(Cloud):
     def list_zones() -> list[schema.CloudZone]:
         # TODO: not implemented
         return []
+
+    @staticmethod
+    @functools.cache
+    def list_machines() -> list[schema.CloudMachine]:
+        for location in Azure.list_regions():
+            data = _run('vm', 'list-sizes', '--location', location.name)
+            return [schema.CloudMachine(
+                name=_['name'],
+                memory=_['memoryInMb']
+                cpus=_['numberOfCores'],
+            ) for _ in data]

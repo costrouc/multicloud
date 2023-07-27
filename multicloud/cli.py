@@ -24,7 +24,7 @@ def _list(resource: schema.ResourceEnum):
     resource_map = {
         schema.ResourceEnum.REGIONS: 'list_regions',
         schema.ResourceEnum.ZONES: 'list_zones',
-        schema.ResourceEnum.VMS: 'list_vms',
+        schema.ResourceEnum.MACHINES: 'list_machines',
     }
 
     if resource not in resource_map:

@@ -14,5 +14,5 @@ class Cloud:
     def list_zones(self) -> list[schema.CloudZone]:
         pass
 
-    def list_vms(self) -> list[schema.CloudVM]:
+    def list_machines(self) -> list[schema.CloudMachine]:
         pass

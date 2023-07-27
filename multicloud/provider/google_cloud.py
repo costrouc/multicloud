@@ -47,9 +47,9 @@ class GoogleCloud(Cloud):
 
     @staticmethod
     @functools.cache
-    def list_vms() -> list[schema.CloudVM]:
+    def list_machines() -> list[schema.CloudMachine]:
         data = _run('compute', 'machine-types', 'list')
-        return [schema.CloudVM(
+        return [schema.CloudMachine(
             name=_['name'],
             description=_['description'],
             memory=_['memoryMb'],
