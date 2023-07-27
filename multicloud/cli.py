@@ -25,6 +25,10 @@ def _list(resource: schema.ResourceEnum):
         schema.ResourceEnum.REGIONS: 'list_regions',
         schema.ResourceEnum.ZONES: 'list_zones',
         schema.ResourceEnum.MACHINES: 'list_machines',
+        schema.ResourceEnum.ACCOUNTS: 'list_accounts',
+        schema.ResourceEnum.INSTANCES: 'list_instances',
+        schema.ResourceEnum.KUBERNETES_CLUSTERS: 'list_kubernetes_clusters',
+        schema.ResourceEnum.BUCKETS: 'list_buckets',
     }
 
     if resource not in resource_map:
@@ -33,11 +37,3 @@ def _list(resource: schema.ResourceEnum):
 
     for provider_name, provider in providers.items():
         print(provider_name, resource.value, getattr(provider, resource_map[resource])())
-
-
-@cli.command()
-def goodbye(name: str, formal: bool = False):
-    if formal:
-        print(f"Goodbye Ms. {name}. Have a good day.")
-    else:
-        print(f"Bye {name}!")

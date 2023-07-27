@@ -32,6 +32,15 @@ class Azure(Cloud):
 
     @staticmethod
     @functools.cache
+    def list_accounts() -> list[schema.CloudAccount]:
+        data = _run('account', 'subscription', 'list')
+        return [schema.CloudAccount(
+            account=_['subscriptionId'],
+            name=_['displayName'],
+        ) for _ in data]
+
+    @staticmethod
+    @functools.cache
     def list_regions() -> list[schema.CloudRegion]:
         data = _run('account', 'list-locations')
         return [schema.CloudRegion(
@@ -48,11 +57,40 @@ class Azure(Cloud):
 
     @staticmethod
     @functools.cache
+    def list_buckets() -> list[schema.Cloudbucket]:
+        # TODO: not implemented
+        return []
+
+    @staticmethod
+    @functools.cache
     def list_machines() -> list[schema.CloudMachine]:
         for location in Azure.list_regions():
             data = _run('vm', 'list-sizes', '--location', location.name)
             return [schema.CloudMachine(
                 name=_['name'],
-                memory=_['memoryInMb']
+                memory=_['memoryInMb'],
                 cpus=_['numberOfCores'],
             ) for _ in data]
+
+    @staticmethod
+    @functools.cache
+    def list_instances() -> list[schema.CloudVM]:
+        for account in Azure.list_accounts():
+            data = _run('vm', 'list', '--subscription', account.account)
+            if len(data) != 0:
+                breakpoint()
+            return [schema.CloudVM(
+                name=_['name'],
+                memory=_['memoryInMb'],
+                cpus=_['numberOfCores'],
+            ) for _ in data]
+
+    @staticmethod
+    @functools.cache
+    def list_kubernetes_clusters() -> list[schema.CloudKubernetesCluster]:
+        kubernetes_clusters = []
+        for account in Azure.list_accounts():
+            data = _run('aks', 'list', '--subscription', account.account)
+            if len(data) != 0:
+                raise NotImplementedError()
+        return kubernetes_clusters
